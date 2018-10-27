@@ -1,0 +1,27 @@
+{
+  "name": "Api_SNCF",
+  "version": "1.0.0",
+  "description": "Api_SNCF",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tchowski/Api_SNCF.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tchowski/Api_SNCF/issues"
+  },
+  "homepage": "https://github.com/tchowski/Api_SNCF#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "moment": "^2.22.2",
+    "nodemon": "^1.18.5",
+    "request-json": "^0.6.3"
+  }
+}
