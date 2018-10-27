@@ -17,17 +17,21 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     client.get('journeys' + '?' + 'to=' + arriverGDL + '&' + 'from=' + departMelun + '&' + 'datetime_represents=departure' + '&' + heuredepart + '&').then(result => {
-        res.send("MELUN - GARE DE LYON " + result.body.journeys);
-    }).catch(error => {
-        console.log(error);
-    });
-
-    client.get('journeys' + '?' + 'to=' + departMelun + '&' + 'from=' + arriverGDL + '&' + 'datetime_represents=departure' + '&' + heuredepart + '&').then(result => {
-        res.send("GARE DE LYON - MELUN " + result.body.journeys);
+        res.send(result.body.journeys);
     }).catch(error => {
         console.log(error);
     });
 });
+
+app.get('/GDL', (req, res) => {
+    
+    client.get('journeys' + '?' + 'to=' + departMelun + '&' + 'from=' + arriverGDL + '&' + 'datetime_represents=departure' + '&' + heuredepart + '&').then(result => {
+        res.send(result.body.journeys);
+    }).catch(error => {
+        console.log(error);
+    });
+})
+
 app.listen(PORT, function () {
     console.log('App listening on port ' + PORT + ' !');
 })
