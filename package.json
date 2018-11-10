@@ -22,7 +22,11 @@
     "express": "^4.16.4",
     "moment": "^2.22.2",
     "nodemon": "^1.18.5",
-    "path": "^0.12.7",
     "request-json": "^0.6.3"
+  },
+  "devDependencies": {
+    "path": "^0.12.7",
+    "pug": "^2.0.3",
+    "twig": "^1.12.0"
   }
 }

@@ -1,6 +1,7 @@
 const express = require("express");
 const moment = require('moment');
 const path = require('path');
+const twig = require('twig');
 moment.locale('fr');
 const app = express();
 const bodyParser = require("body-parser");
@@ -15,27 +16,41 @@ const departMelun = "stop_area:OIF:SA:8768200"
 heureDepartMoment = moment().format("YYYYMMDD" + "T" + "HHmmss");
 const heuredepart = heureDepartMoment
 
+app.set('views', './views')
+app.set('view engine', 'html');
+app.engine('html', twig.__express);
 app.use(bodyParser.json());
 
-let heures = {
+app.use('/vendor', express.static('views/vendor'));
+app.use('/js', express.static('views/js'));
+app.use('/css', express.static('views/css'));
+app.use('/img', express.static('views/img'));
+
+
+var heures = {
     dateDemander: "",
     dateArrivee: "",
     dateDepart: ""
-}
+};
+
+// app.get('/', function (req, res) {
+//     res.render('index', { title: 'Hey', message: 'Hello there!'});
+//   });
 
 app.get("/", (req, res) => {
     testa = () => {
         client.get('journeys' + '?' + 'to=' + arriverGDL + '&' + 'from=' + departMelun + '&' + 'datetime_represents=departure' + '&' + heuredepart + '&').then(function (result) {
-             console.log(result.body.journeys[0])
-            let departure = result.body.journeys[0].departure_date_time;
-            let arrival = result.body.journeys[0].arrival_date_time;
+            var departure = result.body.journeys[0].departure_date_time;
+            var arrival = result.body.journeys[0].arrival_date_time;
             heureDemander = result.body.journeys[0].requested_date_time;
             heures.dateDepart = moment(departure).format("LLLL");
             heures.dateArrivee = moment(arrival).format("LLLL");
             heures.dateDemander = moment(heureDemander).format("LLLL");
-            res.send("<p style=\"text-align: center;\"> Requête demandée à: " + heures.dateDemander + "</p> <br> <p style=\"text-align: center;\"> Le prochain train part à: " + heures.dateDepart + "</p> <br> <p style=\"text-align: center;\" > L'heure d'arrivée est prévue à: " + heures.dateArrivee + "</p>")
+            res.render('index', {
+                arriver: heures.dateArrivee,
+                depart: heures.dateDepart
+            });
             return heures
-
         }).catch(error => {
             console.log(error);
         });
