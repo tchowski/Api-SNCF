@@ -33,10 +33,6 @@ var heures = {
     dateDepart: ""
 };
 
-// app.get('/', function (req, res) {
-//     res.render('index', { title: 'Hey', message: 'Hello there!'});
-//   });
-
 app.get("/", (req, res) => {
     testa = () => {
         client.get('journeys' + '?' + 'to=' + arriverGDL + '&' + 'from=' + departMelun + '&' + 'datetime_represents=departure' + '&' + heuredepart + '&').then(function (result) {
